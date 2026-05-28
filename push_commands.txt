@@ -1,0 +1,9 @@
+# Commands to push to GitHub
+# Replace YOUR_USERNAME with your actual GitHub username
+
+git remote add origin https://github.com/YOUR_USERNAME/dealpulse.git
+git branch -M main
+git push -u origin main
+
+# After pushing, your repository will be live at:
+# https://github.com/YOUR_USERNAME/dealpulse
