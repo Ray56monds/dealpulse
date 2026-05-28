@@ -2,10 +2,14 @@ import os
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 import random
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Connect to MongoDB
 client = MongoClient(os.getenv('MONGODB_URI'))
-db = client[os.getenv('MONGODB_DATABASE')]
+db = client[os.getenv('MONGODB_DATABASE', 'dealpulse')]
 
 # Financial Services Client Data
 clients_data = [
