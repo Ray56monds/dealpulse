@@ -1,0 +1,6 @@
+google-cloud-aiplatform>=1.38.0
+pymongo>=4.6.0
+streamlit>=1.28.0
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+mcp>=0.4.0
