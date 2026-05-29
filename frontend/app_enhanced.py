@@ -5,6 +5,15 @@ import os
 # Add the agent directory to the path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'agent'))
 
+# Set environment variables from Streamlit secrets if available
+try:
+    if "MONGODB_URI" in st.secrets:
+        os.environ["MONGODB_URI"] = st.secrets["MONGODB_URI"]
+    if "MONGODB_DATABASE" in st.secrets:
+        os.environ["MONGODB_DATABASE"] = st.secrets["MONGODB_DATABASE"]
+except Exception:
+    pass
+
 try:
     from mongodb_agent import DealPulseAgentMongoDB
     MONGODB_AVAILABLE = True

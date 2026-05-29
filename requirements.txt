@@ -4,3 +4,4 @@ streamlit>=1.28.0
 python-dotenv>=1.0.0
 pydantic>=2.5.0
 mcp>=0.4.0
+certifi>=2023.0.0

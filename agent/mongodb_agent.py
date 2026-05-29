@@ -1,17 +1,39 @@
 import os
+import sys
 from pymongo import MongoClient
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
 
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+def get_mongo_uri():
+    """Get MongoDB URI from Streamlit secrets or environment"""
+    try:
+        import streamlit as st
+        return st.secrets.get("MONGODB_URI", os.getenv('MONGODB_URI'))
+    except:
+        return os.getenv('MONGODB_URI')
+
+def get_mongo_db():
+    """Get MongoDB database name from Streamlit secrets or environment"""
+    try:
+        import streamlit as st
+        return st.secrets.get("MONGODB_DATABASE", os.getenv('MONGODB_DATABASE', 'dealpulse'))
+    except:
+        return os.getenv('MONGODB_DATABASE', 'dealpulse')
 
 class DealPulseAgentMongoDB:
     """DealPulse Agent with direct MongoDB integration for demo"""
     
     def __init__(self):
-        # Connect directly to MongoDB Atlas
-        self.client = MongoClient(os.getenv('MONGODB_URI'))
-        self.db = self.client[os.getenv('MONGODB_DATABASE', 'dealpulse')]
+        import certifi
+        uri = get_mongo_uri()
+        db_name = get_mongo_db()
+        self.client = MongoClient(uri, tlsCAFile=certifi.where())
+        self.db = self.client[db_name]
         print("DealPulse Agent connected to MongoDB Atlas")
     
     def query_agent(self, message: str):
